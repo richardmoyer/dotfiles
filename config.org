@@ -8,13 +8,19 @@
   (ad-activate 'ansi-term)
 #+END_SRC
 
-** Set global key for terminal M-return
+** Set global key for terminal C-return
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "<M-return>") 'ansi-term)
+  (global-set-key (kbd "<C-return>") 'ansi-term)
 #+END_SRC
 
 * Org
-** COMMENT Org bullets
+** basic config
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-window-setup 'current-window)
+  (add-to-list 'org-structure-template-alist
+	       '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+#+END_SRC
+** Org bullets
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :ensure t
@@ -52,7 +58,6 @@
 (when window-system (global-hl-line-mode t))
 #+END_SRC
 
-
 ** Pretty symbols
 #+BEGIN_SRC emacs-lisp
 (when window-system (global-prettify-symbols-mode t))
@@ -70,6 +75,24 @@
   (scroll-bar-mode -1)
 #+END_SRC
 
+** electric pairs
+#+BEGIN_SRC emacs-lisp
+  (setq electric-pair-pairs '(
+			      (?\( . ?\))
+			      (?\[ . ?\])
+			      (?\{ . ?\})
+			      (?\" . ?\")
+			      (?\' . ?\')
+			      ))
+
+  (electric-pair-mode t)
+#+END_SRC
+* Hungry delete
+#+BEGIN_SRC emacs-lisp
+  (use-package hungry-delete
+    :ensure t
+    :config (global-hungry-delete-mode))
+#+END_SRC
 * Which-key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
@@ -87,7 +110,8 @@
 #+BEGIN_SRC emacs-lisp
   (use-package linum-relative
     :ensure t
-    :init (linum-relative-on))
+    :init (linum-relative-mode 1))
+  (setq linum-relative-global-mode 1)
 
 #+END_SRC
 * IDO
@@ -125,15 +149,27 @@
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x b") 'ibuffer)
 #+END_SRC
-* avy
+** always kill current buffer
+#+BEGIN_SRC emacs-lisp
+  (defun kill-curr-buffer ()
+    (interactive)
+    (kill-buffer (current-buffer)))
+  (global-set-key (kbd "C-x k") 'kill-curr-buffer)
+#+END_SRC
+** kill all buffers
+#+BEGIN_SRC emacs-lisp
+  (defun kill-all-buffers ()
+    (interactive)
+    mapc 'kill-buffer (buffer-list))
+  (global-set-key (kbd "C-M-s-k") 'kill-all-buffers)
+#+END_SRC
+* Avy
  #+BEGIN_SRC emacs-lisp
    (use-package avy
-     :ensure t
-     :bind
-     ("M-s" . avy-goto-char-2))
+     :ensure t)
+ (global-set-key (kbd "C-c j") 'avy-goto-word-1)
  #+END_SRC
-
-* config edit/reload
+* Config edit/reload
 **edit
 #+BEGIN_SRC emacs-lisp
   (defun config-visit ()
@@ -163,4 +199,96 @@
     (balance-windows)
     (other-window 1))
   (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+#+END_SRC
+* Evil
+** evil
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :config
+    (evil-mode 1))
+#+END_SRC
+** evil leader
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode))
+#+END_SRC
+** evil-surround 
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode))
+#+END_SRC
+** evil indent
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-indent-textobject
+    :ensure t)
+#+END_SRC
+** C-u
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+#+END_SRC
+** C-d
+   #+BEGIN_SRC emacs-lisp
+   (define-key evil-normal-state-map (kbd "C-d") 'evil-scroll-down)
+   #+END_SRC
+* Rainbow
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+    (rainbow-delimiters-mode 1))
+#+END_SRC
+* Dashboard
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents . 10))))
+
+  (setq dashboard-startup-banner 3)
+#+END_SRC
+* Autocompletion
+** company
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :init
+    (add-hook 'after-init-hook 'global-company-mode))
+
+  (setq company-idle-delay .2)
+  (setq company-minimum-prefix-length 2)
+  (setq company-selection-wrap-around t)
+  (company-tng-configure-default)
+#+END_SRC
+* Markdown
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :commands (markdown-mode gfm-mode)
+    :mode (("README\\.md\\'" . gfm-mode)
+	   ("\\.md\\'" . markdown-mode)
+	   ("\\markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown"))
+#+END_SRC
+* Flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :init (global-flycheck-mode))
+#+END_SRC
+* Company-jedi
+#+BEGIN_SRC emacs-lisp
+  (use-package company-jedi
+    :ensure t
+    :config
+    :hook
+    ((python-mode . jedi:setup))
+    :init
+    (add-hook 'python-mode-hook
+	      (lambda () (add-to-list 'company-backends 'company-jedi))))
 #+END_SRC
