@@ -258,6 +258,11 @@
     :init
     (rainbow-delimiters-mode 1))
 #+END_SRC
+* Paredit
+  #+BEGIN_SRC emacs-lisp
+    (use-package paredit-everywhere
+      :ensure t)
+  #+END_SRC
 * Dashboard
 #+BEGIN_SRC emacs-lisp
   (use-package dashboard
@@ -269,7 +274,7 @@
   (setq dashboard-startup-banner 3)
 #+END_SRC
 * Autocompletion
-** company
+** Company
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
@@ -281,6 +286,23 @@
   (setq company-selection-wrap-around t)
   (company-tng-configure-default)
 #+END_SRC
+** C
+   #+BEGIN_SRC emacs-lisp
+     (use-package company-irony
+       :ensure t
+       :config
+       (require 'company)
+       (add-to-list 'company-backends 'company-irony))
+
+     (use-package irony
+       :ensure t
+       :config
+       (add-hook 'c-mode-hook 'irony-mode)
+       (add-hook 'irony-mode 'irony-cdb-autosetup-compile-options))
+
+     (with-eval-after-load 'company
+       (add-hook 'c-mode-hook 'company-mode))
+   #+END_SRC
 * Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
@@ -297,17 +319,6 @@
     :ensure t
     :init (global-flycheck-mode))
 #+END_SRC
-* Company-jedi
-#+BEGIN_SRC emacs-lisp
-  (use-package company-jedi
-    :ensure t
-    :config
-    :hook
-    ((python-mode . jedi:setup))
-    :init
-    (add-hook 'python-mode-hook
-	      (lambda () (add-to-list 'company-backends 'company-jedi))))
-#+END_SRC
 * Neotree
 #+BEGIN_SRC emacs-lisp
   (use-package neotree
@@ -318,4 +329,38 @@
 ** neotree toggle 
    #+BEGIN_SRC emacs-lisp
      (global-set-key (kbd "C-c t") 'neotree-toggle)
+   #+END_SRC
+* Slime 
+  #+BEGIN_SRC emacs-lisp
+    (use-package slime
+      :ensure t
+      :config
+      (setq inferior-lisp-program "/usr/bin/sbcl")
+      (setq slime-contribs '(slime-fancy)))
+  #+END_SRC
+** company sly
+  #+BEGIN_SRC emacs-lisp
+      (use-package sly-company
+	:defer t
+	:init
+	       (add-hook 'sly-mode-hook #'sly-company-mode))
+  #+END_SRC
+  
+* Clojure
+** clojure mode
+   #+BEGIN_SRC emacs-lisp
+  (use-package clojure-mode
+    :ensure t)
+   #+END_SRC
+** cider
+   #+BEGIN_SRC emacs-lisp
+     (use-package cider
+       :ensure t)
+   #+END_SRC
+* Notes file
+   #+BEGIN_SRC emacs-lisp
+     (defun notes-visit ()
+       (interactive)
+       (find-file "~/.emacs.d/notepad.org"))
+     (global-set-key (kbd "C-c n o") 'notes-visit)
    #+END_SRC
