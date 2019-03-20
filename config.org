@@ -8,9 +8,9 @@
   (ad-activate 'ansi-term)
 #+END_SRC
 
-** Set global key for terminal C-return
+** Set global key for terminal C-S-return
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "<C-return>") 'ansi-term)
+  (global-set-key (kbd "<C-S-return>") 'ansi-term)
 #+END_SRC
 
 * Org
@@ -114,8 +114,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package linum-relative
     :ensure t
-    :init (linum-relative-mode 1))
-  (setq linum-relative-global-mode 1)
+    :init (linum-relative-global-mode 1))
 
 #+END_SRC
 * IDO
@@ -169,9 +168,10 @@
 #+END_SRC
 * Avy
  #+BEGIN_SRC emacs-lisp
-   (use-package avy
-     :ensure t)
- (global-set-key (kbd "C-c j") 'avy-goto-word-1)
+     (use-package avy
+       :ensure t)
+   (global-set-key (kbd "M-w") 'avy-goto-word-1)
+   (global-set-key (kbd "M-s") 'avy-goto-char-2)
  #+END_SRC
 * Config edit/reload
 ** edit
@@ -203,6 +203,20 @@
     (balance-windows)
     (other-window 1))
   (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+#+END_SRC
+* Switch window
+#+BEGIN_SRC emacs-lisp
+  (use-package switch-window
+    :ensure t
+    :config
+      (setq switch-window-input-style 'minibuffer)
+      (setq switch-window-increase 4)
+      (setq switch-window-threshold 2)
+      (setq switch-window-shortcut-style 'qwerty)
+      (setq switch-window-qwerty-shortcuts
+	  '("q" "w" "e" "r" "a" "s" "d" "f")) 
+    :bind
+     ([remap other-window] . switch-window))
 #+END_SRC
 * Evil
 ** evil
@@ -269,9 +283,9 @@
     :ensure t
     :config
     (dashboard-setup-startup-hook)
+    (setq dashboard-startup-banner "~/.emacs.d/img/gnu.png")
     (setq dashboard-items '((recents . 10))))
 
-  (setq dashboard-startup-banner 3)
 #+END_SRC
 * Autocompletion
 ** Company
@@ -303,6 +317,19 @@
      (with-eval-after-load 'company
        (add-hook 'c-mode-hook 'company-mode))
    #+END_SRC
+** yasnippet
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'c-mode-hook 'yas-minor-mode)
+#+END_SRC
+** flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-clang-analyzer
+    :ensure t
+    :config
+    (with-eval-after-load 'flycheck
+      (require 'flycheck-clang-analyzer)
+       (flycheck-clang-analyzer-setup)))
+#+END_SRC
 * Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
@@ -317,7 +344,16 @@
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :ensure t
-    :init (global-flycheck-mode))
+    :init (global-flycheck-mode t))
+#+END_SRC
+* Yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (use-package yasnippet-snippets
+      :ensure t)
+    (yas-reload-all))
 #+END_SRC
 * Neotree
 #+BEGIN_SRC emacs-lisp
@@ -332,11 +368,17 @@
    #+END_SRC
 * Slime 
   #+BEGIN_SRC emacs-lisp
-    (use-package slime
-      :ensure t
-      :config
-      (setq inferior-lisp-program "/usr/bin/sbcl")
-      (setq slime-contribs '(slime-fancy)))
+	(use-package slime
+	  :ensure t
+	  :config
+	  (setq inferior-lisp-program "/usr/bin/sbcl")
+	  (setq slime-contribs '(slime-fancy)))
+
+    (use-package slime-company
+	 :ensure t
+	 :init
+	 (require 'company)
+	 (slime-setup '(slime-fancy slime-company)))
   #+END_SRC
 ** company sly
   #+BEGIN_SRC emacs-lisp
@@ -364,3 +406,63 @@
        (find-file "~/.emacs.d/notepad.org"))
      (global-set-key (kbd "C-c n o") 'notes-visit)
    #+END_SRC
+* Python
+  #+BEGIN_SRC emacs-lisp
+    ;;(use-package jedi
+      ;;:ensure t)
+     ;;(add-hook 'python-mode-hook 'jedi:setup)
+    ;;(setq jedi:complete-on-dot t)
+
+    ;;(use-package company-jedi             ;;; company-mode completion back-end for Python JEDI
+    ;;  :config
+    ;;  (setq jedi:environment-virtualenv (list (expand-file-name "~/.emacs.d/.python-environments/")))
+    ;;  (add-hook 'python-mode-hook 'jedi:setup)
+    ;;  (setq jedi:complete-on-dot t)
+    ;;  (setq jedi:use-shortcuts t)
+    ;;  (defun config/enable-company-jedi ()
+    ;;    (add-to-list 'company-backends 'company-jedi))
+    ;;  (add-hook 'python-mode-hook 'config/enable-company-jedi))
+
+
+    (with-eval-after-load 'company
+	(add-hook 'python-mode-hook 'company-mode))
+
+    (use-package company-jedi
+      :ensure t
+      :config
+	(require 'company)
+	(add-to-list 'company-backends 'company-jedi))
+
+    (defun python-mode-company-init ()
+      (setq-local company-backends '((company-jedi
+				      company-etags
+				      company-dabbrev-code))))
+
+    (use-package company-jedi
+      :ensure t
+      :config
+	(require 'company)
+	(add-hook 'python-mode-hook 'python-mode-company-init))
+  #+END_SRC
+** yasnippet
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook 'yas-minor-mode)
+#+END_SRC
+** flycheck
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook 'flycheck-mode)
+#+END_SRC
+* Undo tree
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :demand t
+    :config
+    (global-undo-tree-mode 1))
+#+END_SRC
+* Swiper
+#+BEGIN_SRC emacs-lisp
+    (use-package swiper
+      :ensure t
+      :bind ("C-s" . 'swiper))
+#+END_SRC
