@@ -2,105 +2,94 @@ set spell spelllang=en_us
 set undofile
 set encoding=utf-8
 
-if has('clipboard')
-  if has('unnamedplus')  " When possible use + register for copy-paste
-    set clipboard=unnamed,unnamedplus
-  else         " On mac and Windows, use * register for copy-paste
-    set clipboard=unnamed
-  endif
-endif
+syntax on
+syntax enable
 
-set ignorecase
-set number
-set conceallevel=1
-set termguicolors
-set background=dark
-
-set expandtab
-set autoindent
-set softtabstop=4
-set shiftwidth=2
-set tabstop=4
-
-set history=1000
+" relative line numbers
 set relativenumber
 
-" Visual shifting (does not exit Visual mode)
-vnoremap < <gv
-vnoremap > >gv
+" copy paste
+set clipboard+=unnamedplus
+"
+" Search configuration
+set ignorecase                    " ignore case when searching
+set smartcase                     " turn on smartcase
+" Tab and Indent configuration
+set expandtab
+set tabstop=4
+set shiftwidth=4
 
-" Allow using the repeat operator with a visual selection (!)
-" http://stackoverflow.com/a/8064607/127816
-vnoremap . :normal .<CR>
+" leader key
+let mapleader = ","
 
-colorscheme slate
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim/plugged')
 
-autocmd BufEnter * lcd %:p:h
+" Make sure you use single quotes
 
-filetype plugin indent on
-
-set undodir=~/.config/nvim/undodir
-
-call plug#begin()
-
-Plug 'vim-scripts/Vimball'
-Plug 'godlygeek/tabular'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
-Plug 'itchyny/lightline.vim'
+" On-demand loading
 Plug 'junegunn/goyo.vim'
-Plug 'rust-lang/rust.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'groenewege/vim-less'
-Plug 'tpope/vim-markdown'
-Plug 'vim-scripts/nginx.vim'
-Plug 'Valloric/YouCompleteMe'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'vim-syntastic/syntastic'
-Plug 'Shougo/neocomplcache.vim'
+Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
-Plug 'airblade/vim-gitgutter'
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'Raimondi/delimitMate'
-Plug 'tmhedberg/SimpylFold'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'mhinz/vim-startify'
-Plug 'vim-scripts/nginx.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
-Plug 'Shougo/vimproc.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'arcticicestudio/nord-vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/fzf.vim'
+Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'guns/vim-clojure-static'
+Plug 'mbbill/undotree'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'tpope/vim-sensible'
+Plug 'w0rp/ale'
+Plug 'raimondi/delimitmate'
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'sebastianmarkow/deoplete-rust'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
+" Initialize plugin system
 call plug#end()
 
-let g:javascript_plugin_jsdoc           = 1
-let g:javascript_conceal_function       = "ƒ"
-let g:javascript_conceal_null           = "ø"
-let g:javascript_conceal_arrow_function = "⇒"
-let g:javascript_conceal_return         = "⇚"
+" Nord colorscheme
+colorscheme nord
 
-let g:jsx_ext_required = 0
+" Nerdtree toggle
+:map <leader>n :NERDTreeToggle<CR>
+"NERDTree /home/richm/
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
-let g:syntastic_check_on_open=1
+" Goyo toggle
+map <leader>g :Goyo<CR>
 
-map <C-E> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen=1
-let NERDTreeShowHidden=1
-let NERDTreeIgnore = ['\.pyc$']
+" FZF
+map ; :Files<CR>
 
-let g:ycm_autoclose_preview_window_after_completion=1
+" Undotree
+map <leader>n :NERDTreeToggle<CR>
 
-filetype plugin on
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-set foldmethod=indent
-set foldlevel=99
+ " Automatically enable mouse usage
+set mouse=a
+" Hide the mouse cursor while typing
+set mousehide
 
-au BufRead,BufNewFile *.nginx set ft=nginx
-au BufRead,BufNewFile */etc/nginx/* set ft=nginx
-au BufRead,BufNewFile */usr/local/nginx/conf/* set ft=nginx
-au BufRead,BufNewFile nginx.conf set ft=nginx
-
-set mouse=a                 " Automatically enable mouse usage
-set mousehide               " Hide the mouse cursor while typing
+" Ale
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'python': ['flake8']}
