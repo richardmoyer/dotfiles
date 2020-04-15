@@ -19,9 +19,12 @@
 ;; (setq doom-font (font-spec :family "IBM Plex Mono" :size 14))
 
 (setq doom-font (font-spec :family "Hack" :size 14))
+
+(setq evil-want-fine-undo t)
+
 (require 'doom-themes)
 
-(load-theme 'doom-nord t)
+(load-theme 'doom-tomorrow-night t)
 
 (setq doom-modeline-major-mode-icon t)
 
@@ -29,9 +32,9 @@
 
 (setq +ivy-buffer-icons t)
 
-;; (setq rustic-lsp-server 'rust-analyzer)
+(after! rustic
+  (setq rustic-lsp-server 'rust-analyzer))
 
-;; (setq racer-rust-src-path "/home/richm/.rust/src/")
 
 ;; (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
 ;; (doom-themes-treemacs-config)
