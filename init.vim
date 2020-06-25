@@ -43,21 +43,14 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'mbbill/undotree'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'tpope/vim-sensible'
-Plug 'w0rp/ale'
 Plug 'raimondi/delimitmate'
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'sebastianmarkow/deoplete-rust'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Initialize plugin system
 call plug#end()
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Nord colorscheme
 colorscheme nord
@@ -77,19 +70,8 @@ map ; :Files<CR>
 " Undotree
 map <leader>n :NERDTreeToggle<CR>
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
  " Automatically enable mouse usage
 set mouse=a
 " Hide the mouse cursor while typing
 set mousehide
 
-" Ale
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {'python': ['flake8']}
