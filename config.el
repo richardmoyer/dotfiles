@@ -1,4 +1,4 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
@@ -16,24 +16,31 @@
 
 (setq display-line-numbers-type 'relative)
 
-;; (setq doom-font (font-spec :family "IBM Plex Mono" :size 14))
-
-(setq doom-font (font-spec :family "Hack" :size 14))
+(setq doom-font (font-spec :family "Iosevka" :size 16))
+(setq doom-variable-pitch-font (font-spec :family "Hack"))
+(setq doom-big-font (font-spec :family "Hack" :size 16))
 
 (setq evil-want-fine-undo t)
 
 (require 'doom-themes)
 
-(load-theme 'doom-tomorrow-night t)
+(load-theme 'doom-one t)
 
 (setq doom-modeline-major-mode-icon t)
+
+ (setq org-directory "~/Dropbox/org/")
 
 (setq winner-mode 1)
 
 (setq +ivy-buffer-icons t)
 
-(after! rustic
-  (setq rustic-lsp-server 'rust-analyzer))
+;; (after! rustic
+;;   (setq rustic-lsp-server 'rust-analyzer))
+
+(setq rustic-lsp-server 'rust-analyzer)
+
+;; (after! lsp-clients
+;;   (set-client-priority! 'ccls 1))
 
 
 ;; (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
@@ -45,6 +52,17 @@
 (add-to-list 'default-frame-alist '(height . 55))
 (add-to-list 'default-frame-alist '(width . 202))
 
+;; (after! doom-modeline
+;;   (doom-modeline-def-modeline 'main
+;;     '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+;;     '(misc-info minor-modes checker input-method buffer-encoding major-mode process vcs "  ")))
+
+(setq all-the-icons-scale-factor 0.8)
+
+
+;; (custom-set-faces!
+;;    '(mode-line :family "Noto Sans" :height 1.0)
+;;    '(mode-line-inactive :family "Noto Sans" :height 1.0))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
