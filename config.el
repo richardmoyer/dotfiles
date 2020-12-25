@@ -1,4 +1,4 @@
-;;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
@@ -16,35 +16,31 @@
 
 (setq display-line-numbers-type 'relative)
 
+;; (setq doom-font (font-spec :family "IBM Plex Mono" :size 14))
+
 (setq doom-font (font-spec :family "Iosevka" :size 16))
-(setq doom-variable-pitch-font (font-spec :family "Hack"))
-(setq doom-big-font (font-spec :family "Hack" :size 16))
 
 (setq evil-want-fine-undo t)
 
 (require 'doom-themes)
 
-(load-theme 'doom-one t)
+(load-theme 'doom-nord t)
 
 (setq doom-modeline-major-mode-icon t)
 
- (setq org-directory "~/Dropbox/org/")
+(setq all-the-icons-scale-factor 0.8)
 
 (setq winner-mode 1)
 
+(setq org-directory "~/Dropbox/org/")
+
 (setq +ivy-buffer-icons t)
 
-;; (after! rustic
-;;   (setq rustic-lsp-server 'rust-analyzer))
+(after! rustic
+  (setq rustic-lsp-server 'rust-analyzer))
 
-(setq rustic-lsp-server 'rust-analyzer)
-
-;; (after! lsp-clients
-;;   (set-client-priority! 'ccls 1))
-
-
-;; (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-;; (doom-themes-treemacs-config)
+(after! lsp-python-ms
+  (set-lsp-priority! 'mspyls 1))
 
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
@@ -52,17 +48,10 @@
 (add-to-list 'default-frame-alist '(height . 55))
 (add-to-list 'default-frame-alist '(width . 202))
 
-;; (after! doom-modeline
-;;   (doom-modeline-def-modeline 'main
-;;     '(bar matches buffer-info remote-host buffer-position parrot selection-info)
-;;     '(misc-info minor-modes checker input-method buffer-encoding major-mode process vcs "  ")))
+(map! :leader
+      :desc "EIN execute cell and move down"
+      "e e" #'ein:worksheet-execute-cell-and-insert-below-km)
 
-(setq all-the-icons-scale-factor 0.8)
-
-
-;; (custom-set-faces!
-;;    '(mode-line :family "Noto Sans" :height 1.0)
-;;    '(mode-line-inactive :family "Noto Sans" :height 1.0))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -110,3 +99,22 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(elfeed-feeds
+   (quote
+    ("https://irreal.org/blog/"
+     ("https://www.reddit.com/r/baseball/.rss?format=xml" daily)
+     ("https://www.theringer.com/rss/index.xml" daily)
+     ("https://www.mlbtraderumors.com/feed" daily)
+     ("https://sabr.org/rss.xml" daily)
+     ("https://blogs.fangraphs.com/feed/" daily)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
