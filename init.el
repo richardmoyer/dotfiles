@@ -22,9 +22,10 @@
        (company +childframe)           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +fuzzy
+       (ivy +childframe
+            +fuzzy
             +prescient
-            +childframe)               ; a search engine for love and life
+            +icons)               ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -50,7 +51,7 @@
        ;; vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
-       zen               ; distraction-free coding or writing
+       ;; zen               ; distraction-free coding or writing
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -81,7 +82,7 @@
 
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
-       spell             ; tasing you for misspelling mispelling
+       ;; spell             ; tasing you for misspelling mispelling
        ;; grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -95,7 +96,7 @@
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
-       lsp
+       (lsp +peek)
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
@@ -136,15 +137,14 @@
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
-       ;;ledger            ; an accounting system in Emacs
-       lua               ; one-based indices? one-based indices
+       ledger            ; an accounting system in Emacs
+       ;; lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +gnuplot
-        +pandoc
         +dragndrop       ; drag & drop files/images into org buffers
         ;; +hugo            ; use Emacs for hugo blogging
         +jupyter        ; ipython/jupyter support for babel
@@ -160,10 +160,10 @@
         +lsp
         +pyenv)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
-       racket            ; a DSL for DSLs
+       ;; racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
-       ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;; ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        scheme            ; a fully conniving family of lisps
@@ -171,7 +171,7 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
+       ;; web               ; the tubes
 
        :email
        ;;(mu4e +gmail)

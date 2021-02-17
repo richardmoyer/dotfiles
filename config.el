@@ -18,13 +18,21 @@
 
 ;; (setq doom-font (font-spec :family "IBM Plex Mono" :size 14))
 
-(setq doom-font (font-spec :family "Iosevka" :size 16))
+(setq doom-font (font-spec :family "Iosevka" :size 17)
+      doom-variable-pitch-font (font-spec :family "Iosevka" :size 15)
+      doom-big-font (font-spec :family "Iosevka" :size 24))
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+;; (custom-set-faces!
+;;   '(font-lock-comment-face :slant italic)
+;;   '(font-lock-keyword-face :slant italic))
 
 (setq evil-want-fine-undo t)
 
 (require 'doom-themes)
 
-(load-theme 'doom-nord t)
+(load-theme 'doom-one t)
 
 (setq doom-modeline-major-mode-icon t)
 
@@ -45,8 +53,8 @@
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
 
-(add-to-list 'default-frame-alist '(height . 55))
-(add-to-list 'default-frame-alist '(width . 202))
+(add-to-list 'default-frame-alist '(height . 43))
+(add-to-list 'default-frame-alist '(width . 180))
 
 (map! :leader
       :desc "EIN execute cell and move down"
