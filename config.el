@@ -20,7 +20,7 @@
 
 (setq doom-font (font-spec :family "Iosevka" :size 17)
       doom-variable-pitch-font (font-spec :family "Iosevka" :size 15)
-      doom-big-font (font-spec :family "Iosevka" :size 24))
+      doom-big-font (font-spec :family "Iosevka" :size 22))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -44,6 +44,8 @@
 
 (setq +ivy-buffer-icons t)
 
+(setq geiser-active-implementations '(guile))
+
 (after! rustic
   (setq rustic-lsp-server 'rust-analyzer))
 
@@ -52,6 +54,7 @@
 
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
+(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
 
 (add-to-list 'default-frame-alist '(height . 43))
 (add-to-list 'default-frame-alist '(width . 180))
@@ -107,19 +110,19 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
-(custom-set-variables
+;; (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(elfeed-feeds
-   (quote
-    ("https://irreal.org/blog/"
-     ("https://www.reddit.com/r/baseball/.rss?format=xml" daily)
-     ("https://www.theringer.com/rss/index.xml" daily)
-     ("https://www.mlbtraderumors.com/feed" daily)
-     ("https://sabr.org/rss.xml" daily)
-     ("https://blogs.fangraphs.com/feed/" daily)))))
+ ;; (setq elfeed-feeds
+ ;;    '("https://planet.emacslife.com/atom.xml"
+ ;;      "https://irreal.org/blog/"
+ ;;      "https://www.mlbtraderumors.com/feed"
+ ;;      "https://blogs.fangraphs.com/feed/"
+ ;;      "https://theintercept.com/feed/?rss"
+ ;;      "https://pluralistic.net/feed/"))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
