@@ -111,6 +111,7 @@ alias ll="exa -lhg"
 alias tree="exa --tree -l"
 alias networth="ledger -f ledger2021.dat balance ^assets ^liabilities --real"
 alias expenses="ledger -f ledger2021.dat -M --period-sort \"(amount)\" reg ^expenses"
+alias server="ssh richm@10.0.0.77"
 
 function chpwd() {
   exa -lhg

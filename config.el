@@ -32,7 +32,7 @@
 
 (require 'doom-themes)
 
-(load-theme 'doom-one t)
+(load-theme 'doom-wilmersdorf t)
 
 (setq doom-modeline-major-mode-icon t)
 
@@ -56,12 +56,18 @@
 (doom-themes-org-config)
 (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
 
-(add-to-list 'default-frame-alist '(height . 43))
-(add-to-list 'default-frame-alist '(width . 180))
+(add-to-list 'default-frame-alist '(height . 53))
+(add-to-list 'default-frame-alist '(width . 120))
 
 (map! :leader
-      :desc "EIN execute cell and move down"
-      "e e" #'ein:worksheet-execute-cell-and-insert-below-km)
+      (:prefix ("a" . "applications")
+      :desc "Elfeed"
+      "e" #'elfeed))
+
+(map! :leader
+      (:prefix ("a" . "applications")
+      :desc "Elfeed update"
+      "u" #'elfeed-update))
 
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
