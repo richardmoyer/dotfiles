@@ -1,8 +1,12 @@
+#!/usr/bin/env zsh
+
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 PATH="$HOME/.emacs.d/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+PATH="$HOME/doom-emacs/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/richm/.oh-my-zsh"
@@ -111,7 +115,9 @@ alias ll="exa -lhg"
 alias tree="exa --tree -l"
 alias networth="ledger -f ledger2021.dat balance ^assets ^liabilities --real"
 alias expenses="ledger -f ledger2021.dat -M --period-sort \"(amount)\" reg ^expenses"
-alias server="ssh richm@10.0.0.77"
+alias server="ssh richm@10.0.0.76"
+alias emacs="emacs --with-profile legacy &"
+alias aptup="sudo apt update && sudo apt upgrade"
 
 function chpwd() {
   exa -lhg
@@ -119,4 +125,10 @@ function chpwd() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-bindkey -v
+# bindkey '\t' autosuggest-accept
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f "/home/richm/.ghcup/env" ] && source "/home/richm/.ghcup/env" # ghcup-env
