@@ -1,0 +1,111 @@
+kitty 0.25.0 created by Kovid Goyal
+Linux pop-os 5.16.15-76051615-generic #202203161444~1647964027~21.10~e706226 SMP PREEMPT Tue Mar 22 17 x86_64
+Pop!_OS 21.10 pop-os /dev/tty
+
+DISTRIB_ID=Pop
+DISTRIB_RELEASE=21.10
+DISTRIB_CODENAME=impish
+DISTRIB_DESCRIPTION="Pop!_OS 21.10"
+Running under: X11
+Frozen: True
+Paths:
+  kitty: /home/richm/.local/kitty.app/bin/kitty
+  base dir: /home/richm/.local/kitty.app/lib/kitty
+  extensions dir: /home/richm/.local/kitty.app/lib/kitty-extensions
+  system shell: /usr/bin/zsh
+Loaded config files:
+  /etc/xdg/kitty/kitty.conf
+  /home/richm/.config/kitty/kitty.conf
+
+Config options different from defaults:
+font_family             Iosevka
+font_size               12.0
+Added shortcuts:
+	super++ → change_font_size all +2.0
+	super+, → edit_config_file
+	super+- → change_font_size all -2.0
+	super+0 → change_font_size all 0
+	super+1 → first_window
+	super+2 → second_window
+	super+3 → third_window
+	super+4 → fourth_window
+	super+5 → fifth_window
+	super+6 → sixth_window
+	super+7 → seventh_window
+	super+8 → eighth_window
+	super+9 → ninth_window
+	super+= → change_font_size all +2.0
+	super+k → clear_terminal to_cursor active
+	super+n → new_os_window
+	super+r → start_resizing_window
+	super+t → new_tab
+	super+w → close_tab
+	super+enter → new_window
+	super+up → scroll_line_up
+	super+down → scroll_line_down
+	super+page_up → scroll_page_up
+	super+page_down → scroll_page_down
+	super+home → scroll_home
+	super+end → scroll_end
+	shift+super+- → change_font_size all -2.0
+	shift+super+= → change_font_size all +2.0
+	shift+super+[ → previous_tab
+	shift+super+] → next_tab
+	shift+super+d → close_window
+	shift+super+i → set_tab_title
+	shift+super+w → close_os_window
+	alt+super+, → debug_config
+	alt+super+r → clear_terminal reset active
+	alt+super+s → toggle_macos_secure_keyboard_entry
+	alt+super+page_up → scroll_line_up
+	alt+super+page_down → scroll_line_down
+	ctrl+super+space → kitten unicode_input
+	ctrl+super+, → load_config_file
+	ctrl+super+f → toggle_fullscreen
+Changed shortcuts:
+	ctrl+shift+h → previous_tab
+	ctrl+shift+l → next_tab
+Colors:
+	active_border_color     #46d9ff
+	active_tab_background   #dfdfdf
+	active_tab_foreground   #282c34
+	background              #282c34
+	color0                  #2a2e38
+	color1                  #ff6c6b
+	color10                 #99bb66
+	color11                 #ecbe7b
+	color12                 #51afef
+	color13                 #c678dd
+	color14                 #46d9ff
+	color15                 #bbc2cf
+	color2                  #98be65
+	color3                  #ecbe7b
+	color4                  #51afef
+	color5                  #c678dd
+	color6                  #46d9ff
+	color7                  #dfdfdf
+	color8                  #3f444a
+	color9                  #ff6655
+	cursor                  #bbc2cf
+	cursor_text_color       #282c34
+	foreground              #bbc2cf
+	inactive_border_color   #3f444a
+	inactive_tab_background #5b6268
+	inactive_tab_foreground #3f444a
+	selection_background    #3f444a
+	selection_foreground    #bbc2cf
+
+Important environment variables seen by the kitty process:
+	PATH                                /home/richm/.cargo/bin:/home/richm/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+	LANG                                en_US.UTF-8
+	SHELL                               /usr/bin/zsh
+	DISPLAY                             :1
+	USER                                richm
+	XDG_SESSION_TYPE                    x11
+	XDG_SESSION_CLASS                   user
+	XDG_RUNTIME_DIR                     /run/user/1000
+	XDG_MENU_PREFIX                     gnome-
+	XDG_CURRENT_DESKTOP                 pop:GNOME
+	XDG_SESSION_DESKTOP                 pop
+	XDG_DATA_DIRS                       /usr/share/pop:/home/richm/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/
+	XDG_CONFIG_DIRS                     /etc/xdg/xdg-pop:/etc/xdg
