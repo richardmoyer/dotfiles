@@ -48,3 +48,12 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+(package! csv-mode)
+(package! ef-themes)
+(package! spacemacs-theme)
+(package! elfeed-goodies)
+(package! rainbow-mode)
+(package! peep-dired)
+(package! dired-open)
+(package! powerthesaurus)
