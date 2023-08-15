@@ -1,21 +1,13 @@
-#!/usr/bin/env zsh
-
-
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-PATH="$HOME/.emacs.d/bin:$PATH"
-PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-PATH="$HOME/doom-emacs/bin:$PATH"
-
+export PATH=$HOME/.emacs.d/bin:$PATH
 # Path to your oh-my-zsh installation.
+# export ZSH="$HOME/.oh-my-zsh"
 export ZSH="/home/richm/.oh-my-zsh"
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="ys"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -23,6 +15,7 @@ ZSH_THEME="ys"
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
+ZSH_THEME="ys"
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -30,14 +23,13 @@ ZSH_THEME="ys"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -52,8 +44,9 @@ ZSH_THEME="ys"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
-# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -77,16 +70,16 @@ ZSH_THEME="ys"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git archlinux zsh-syntax-highlighting zsh-autosuggestions vi-mode)
+plugins=(
+        git
+        zsh-autosuggestions
+        zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-
-#set manpage to nvim
-export MANPAGER="nvim -c 'set ft=man' -"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -109,26 +102,19 @@ export MANPAGER="nvim -c 'set ft=man' -"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias v="nvim"
 alias ll="exa -lhg"
 alias tree="exa --tree -l"
-alias networth="ledger -f ledger2021.dat balance ^assets ^liabilities --real"
-alias expenses="ledger -f ledger2021.dat -M --period-sort \"(amount)\" reg ^expenses"
+alias shnow="shutdown -h now"
+alias pacup="sudo pacman -Syu"
 alias server="ssh richm@10.0.0.76"
-alias emacs="emacs --with-profile legacy &"
-alias aptup="sudo apt update && sudo apt upgrade"
-
-function chpwd() {
-  exa -lhg
-}
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# bindkey '\t' autosuggest-accept
+alias xmodmap="xmodmap ~/.Xmodmap"
+alias logout="pkill -kill -u richm"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f "/home/richm/.ghcup/env" ] && source "/home/richm/.ghcup/env" # ghcup-env
+
+
+# eval "$(starship init zsh)"
